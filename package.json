@@ -22,7 +22,9 @@
 		"bin",
 		"dist"
 	],
-	"scripts": {},
+	"scripts": {
+		"prepublish": "tsc"
+	},
 	"jest": {
 		"testEnvironment": "node"
 	},
@@ -33,7 +35,6 @@
 	},
 	"devDependencies": {
 		"@prisma/client": "~4.2.1",
-		"@prisma/sdk": "~4.0.0",
 		"@tsconfig/recommended": "^1.0.1",
 		"@types/fs-extra": "^9.0.13",
 		"jest-mock-extended": "^2.0.7",
