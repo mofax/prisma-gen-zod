@@ -1,0 +1,45 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated/client"
+}
+
+generator zod {
+    provider = "prisma-gen-zod"
+    output   = "../prisma-zod"
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum PostStatus {
+    DRAFT
+    PUBLISHED
+}
+
+model User {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now()) /// dateonly
+    email     String   @unique
+    name      String?
+    meta      Json?
+    role      Role     @default(USER)
+    posts     Post[]
+}
+
+model Post {
+    id        Int        @id @default(autoincrement())
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    published Boolean    @default(false)
+    title     String     @db.VarChar(255)
+    status    PostStatus @default(DRAFT)
+    author    User?      @relation(fields: [authorId], references: [id])
+    authorId  Int?
+}
