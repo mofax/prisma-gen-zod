@@ -7,7 +7,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                node: ["14.x", "16.x"]
+                node: ["18.x", "16.x"]
                 os: [ubuntu-latest]
 
         steps:
@@ -21,13 +21,19 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node }}
-                  cache: "npm"
 
-            - name: Install global tools
-              run: npm install -g eslint prettier typescript
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2.0.1
+              id: pnpm-install
+              with:
+                  version: 7
+                  run_install: false
 
             - name: Install deps
               run: pnpm install
 
             - name: Type check
-              run: tsc --noEmit
+              run: pnpm run tsc
+
+            - name: Lint
+              run: pnpm run eslint .
