@@ -3,7 +3,6 @@ import { generate } from "./generate"
 
 generatorHandler({
 	onGenerate: async (options) => {
-		console.log(options.dmmf.mappings)
 		const config = options.generator
 		const dmmf = options.dmmf
 		const { enums, models } = dmmf.datamodel
