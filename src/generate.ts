@@ -31,8 +31,8 @@ function generateEnums(sourceFile: SourceFile, enums: DMMF.DatamodelEnum[]) {
 }
 
 function generateModels(sourceFile: SourceFile, models: DMMF.Model[]) {
-	function appendModifiers(source: string[], isList: boolean, isRequired: boolean = true) {
-		let values = []
+	function appendModifiers(source: string[], isList: boolean, isRequired = true) {
+		const values = []
 		if (isList) {
 			values.push("array()")
 		}
@@ -48,7 +48,7 @@ function generateModels(sourceFile: SourceFile, models: DMMF.Model[]) {
 		const isRequired = field.isRequired
 
 		if (kind === "scalar") {
-			let zodStatement = []
+			const zodStatement = []
 			switch (type) {
 				case "String": {
 					zodStatement.push("z.string()")
